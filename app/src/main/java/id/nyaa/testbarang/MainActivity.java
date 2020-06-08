@@ -31,5 +31,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        bLihat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(LihatBarang.getActIntent(MainActivity.this));
+            }
+        });
     }
 }
