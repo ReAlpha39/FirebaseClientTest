@@ -11,4 +11,6 @@
     <string name="txtKosong"></string>
     <string name="edit_data">Edit data</string>
     <string name="hapus_data">Hapus data</string>
+    <string name="cancel">Cancel</string>
+    <string name="update">Update</string>
 </resources>
