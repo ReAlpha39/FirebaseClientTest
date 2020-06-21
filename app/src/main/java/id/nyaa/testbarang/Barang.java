@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Barang implements Serializable {
     private String kode;
     private String nama;
+    private String mainKey;
 
     public Barang() {
 
@@ -14,8 +15,10 @@ public class Barang implements Serializable {
         return kode;
     }
 
-    public void setKode(String kd) {
-        this.kode = kd;
+    public String getMainKey() { return  mainKey;}
+
+    public void setMainKey(String kd) {
+        this.mainKey = kd;
     }
 
     public String getNama() {

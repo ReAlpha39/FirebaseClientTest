@@ -23,7 +23,7 @@ public class UpdateData extends AppCompatActivity {
     Button cancel;
 
     Barang barang;
-    String oldKode;
+    String mainKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,8 @@ public class UpdateData extends AppCompatActivity {
         if (extras != null) {
             String namaValue = extras.getString("nama");
             String idValue = extras.getString("id");
-            oldKode = idValue;
+            String key = extras.getString("key");
+            mainKey = key;
 
             kode.setText(idValue);
             nama.setText(namaValue);
@@ -51,7 +52,7 @@ public class UpdateData extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 barang = new Barang(kode.getText().toString(), nama.getText().toString());
-                updateData(barang, oldKode);
+                updateData(barang, mainKey);
             }
         });
 

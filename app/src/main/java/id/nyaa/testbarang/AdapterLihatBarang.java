@@ -86,10 +86,13 @@ public class AdapterLihatBarang extends RecyclerView.Adapter<AdapterLihatBarang.
                     public boolean onMenuItemClick(MenuItem item) {
                         String nama = daftarBarang.get(position).getNama();
                         String id = daftarBarang.get(position).getKode();
+                        String key = daftarBarang.get(position).getMainKey();
+
                         switch (item.getItemId()) {
                             case R.id.editData:
                                 Bundle bundle = new Bundle();
                                 bundle.putString("id", id);
+                                bundle.putString("key", key);
                                 bundle.putString("nama", nama);
 
                                 Intent intent = new Intent(context, UpdateData.class);
@@ -97,7 +100,7 @@ public class AdapterLihatBarang extends RecyclerView.Adapter<AdapterLihatBarang.
                                 context.startActivity(intent);
                                 break;
                             case R.id.hapusData:
-                                showDeleteDialog(id, nama);
+                                showDeleteDialog(key, nama);
                                 break;
 
                         }
