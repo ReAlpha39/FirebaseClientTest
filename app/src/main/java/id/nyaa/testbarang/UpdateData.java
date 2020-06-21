@@ -54,6 +54,14 @@ public class UpdateData extends AppCompatActivity {
                 updateData(barang, oldKode);
             }
         });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LihatBarang.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void updateData(Barang barang, String oldKode) {
