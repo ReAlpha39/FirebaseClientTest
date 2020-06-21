@@ -1,5 +1,7 @@
 package id.nyaa.testbarang;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -81,7 +83,15 @@ public class AdapterLihatBarang extends RecyclerView.Adapter<AdapterLihatBarang.
                         switch (item.getItemId()) {
                             case R.id.editData:
                                 // add code here
-                                String data;
+                                String nama = daftarBarang.get(position).getNama();
+                                String id = daftarBarang.get(position).getKode();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("id", id);
+                                bundle.putString("nama", nama);
+
+                                Intent intent = new Intent(context, UpdateData.class);
+                                intent.putExtras(bundle);
+                                context.startActivity(intent);
                                 break;
                             case R.id.hapusData:
                                 // add code here
