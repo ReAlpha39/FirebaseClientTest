@@ -39,7 +39,7 @@ public class TambahDta extends AppCompatActivity {
                 if (!(etKode.getText().toString().isEmpty())&&
                         !(etnama.getText().toString().isEmpty()))
                     submitBrg(new Barang(etKode.getText().toString(),
-                            etnama.getText().toString()), etKode.getText().toString());
+                            etnama.getText().toString()));
                 else
                     Toast.makeText(getApplicationContext(),"Data tidak boleh kosong",
                             Toast.LENGTH_LONG).show();
@@ -50,8 +50,8 @@ public class TambahDta extends AppCompatActivity {
             }
         });
     }
-    public void submitBrg (Barang brg, String id){
-        database.child("Barang").child(id).setValue(brg).addOnSuccessListener(this,
+    public void submitBrg (Barang brg){
+        database.child("Barang").push().setValue(brg).addOnSuccessListener(this,
                 new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
