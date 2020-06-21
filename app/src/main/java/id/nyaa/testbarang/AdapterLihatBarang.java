@@ -1,26 +1,30 @@
 package id.nyaa.testbarang;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.content.Context;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class AdapterLihatBarang extends RecyclerView.Adapter<AdapterLihatBarang.ViewHolder> {
 
     private ArrayList<Barang> daftarBarang;
     private Context context;
+    private DatabaseReference database;
 
     public AdapterLihatBarang(ArrayList<Barang> barangs, Context ctx) {
         /*
@@ -80,11 +84,10 @@ public class AdapterLihatBarang extends RecyclerView.Adapter<AdapterLihatBarang.
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        String nama = daftarBarang.get(position).getNama();
+                        String id = daftarBarang.get(position).getKode();
                         switch (item.getItemId()) {
                             case R.id.editData:
-                                // add code here
-                                String nama = daftarBarang.get(position).getNama();
-                                String id = daftarBarang.get(position).getKode();
                                 Bundle bundle = new Bundle();
                                 bundle.putString("id", id);
                                 bundle.putString("nama", nama);
@@ -94,7 +97,7 @@ public class AdapterLihatBarang extends RecyclerView.Adapter<AdapterLihatBarang.
                                 context.startActivity(intent);
                                 break;
                             case R.id.hapusData:
-                                // add code here
+                                showDeleteDialog(id, nama);
                                 break;
 
                         }
@@ -114,5 +117,38 @@ public class AdapterLihatBarang extends RecyclerView.Adapter<AdapterLihatBarang.
          * Mengembalikan jumlah item pada barang
          */
         return daftarBarang.size();
+    }
+
+    private void showDeleteDialog(final String id, String nama) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        dialogBuilder.setTitle("Hapus Data");
+        dialogBuilder.setMessage("Apakah anda ingin menghapus data " + nama + "?");
+        dialogBuilder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        dialogBuilder.setNegativeButton("Ya", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Delete
+                delete(id);
+            }
+        });
+
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.show();
+    }
+
+    public void delete(String id) {
+        try {
+            database = FirebaseDatabase.getInstance().getReference().child("Barang").child(id);
+            database.removeValue();
+            Toast.makeText(context, "Data berhasil diperbaharui",
+                    Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+
+        }
     }
 }
