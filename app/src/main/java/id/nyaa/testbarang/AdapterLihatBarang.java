@@ -1,8 +1,13 @@
 package id.nyaa.testbarang;
 
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.content.Context;
 
@@ -49,7 +54,7 @@ public class AdapterLihatBarang extends RecyclerView.Adapter<AdapterLihatBarang.
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         /*
          *  Menampilkan data pada view
          */
@@ -68,7 +73,26 @@ public class AdapterLihatBarang extends RecyclerView.Adapter<AdapterLihatBarang.
                 /*
                  *  untuk latihan Selanjutnya ,fungsi Delete dan Update data
                  */
-                return true;
+                PopupMenu popupMenu = new PopupMenu(context, holder.itemView);
+                popupMenu.inflate(R.menu.menu);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.editData:
+                                // add code here
+                                String data;
+                                break;
+                            case R.id.hapusData:
+                                // add code here
+                                break;
+
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+                return false;
             }
         });
         holder.tvTitle.setText(name);
